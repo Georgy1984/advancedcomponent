@@ -17,11 +17,7 @@ if ($_SERVER['REQUEST_URI'] == '/homepage') {
 
     require '../app/controllers/Homepage.php';
 
-    /*
-    $homepage = new Homepage();
-      $homepage->show();
 
-    */
 }
 
 exit;

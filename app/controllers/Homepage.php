@@ -14,21 +14,7 @@ $db->update([
 
 
 
-/*
-class Homepage
-{
-    public function show() {
 
-        $db = new QueryBuilder();
-
-        $posts = $db->getAll('posts');
-
-
-}
-
-}
-
-*/
 
 
 
