@@ -5,11 +5,28 @@
 use App\QueryBuilder;
 
 $db = new QueryBuilder();
-$db->update([
 
-    'title' => 'Go to Main Page',
+/* $db->delete('posts', 1); */
+
+$db->insert([
+    'title' => 'go to homepage'
+
+], 'posts');
+
+
+
+/* $db->update([
+
+    'title' => 'Rename the page',
 
 ], 1, 'posts');
+*/
+
+/*$posts = $db->getAll('posts');
+
+var_dump($posts); */
+
+
 
 
 

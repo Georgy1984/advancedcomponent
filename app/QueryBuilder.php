@@ -63,7 +63,27 @@ class QueryBuilder {
 
     }
 
-    // Написать метод DELETE
+    public function delete($table, $id)
+    {
+        $delete = $this->queryFactory->newDelete();
+
+        $delete
+            ->from($table)
+            ->where('id = :id')
+            ->bindValue('id', $id);
+
+
+
+
+        $sth = $this->pdo->prepare($delete->getStatement());
+
+
+        $sth->execute($delete->getBindValues());
+
+
+    }
+
+
 
 }
 
