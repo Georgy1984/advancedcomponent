@@ -63,5 +63,7 @@ class QueryBuilder {
 
     }
 
+    // Написать метод DELETE
+
 }
 
