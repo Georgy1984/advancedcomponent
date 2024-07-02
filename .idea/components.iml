@@ -5,6 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/app" isTestSource="false" packagePrefix="App\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/aura/sqlquery" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/kint-php/kint" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/league/plates" />
     </content>
     <orderEntry type="inheritedJdk" />
