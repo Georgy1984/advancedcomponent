@@ -8,13 +8,26 @@ ini_set('display_errors', 1);
 
 require __DIR__.'/../vendor/autoload.php';
 
-
+/*
 if ($_SERVER['REQUEST_URI'] == '/home') {
 
     require '../app/controllers/Homepage.php';
 
 
 }
+
+echo 'Hello';
+
+*/
+
+// Create new Plates instance
+$templates = new League\Plates\Engine('../app/views');
+//echo '<pre/>';
+
+
+// Render a template
+echo $templates->render('about', ['title' => 'first about']);
+
 
 exit;
 
