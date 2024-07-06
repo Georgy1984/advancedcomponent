@@ -26,7 +26,7 @@ class QueryBuilder {
         $sth->execute($select->getBindValues());
 
 
-        $result = $sth->fetch(PDO::FETCH_ASSOC);
+        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
 
