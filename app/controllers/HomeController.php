@@ -12,16 +12,42 @@ use function Tamtamchik\SimpleFlash\flash;
 class HomeController
 {
    private $templates;
-   public function __construct()
+   private $auth;
+   private $qb;
+   public function __construct(QueryBuilder $qb)
    {
+       $this->qb = $qb;
        $this->templates = new Engine('../app/views');
+       $db =  new PDO("mysql:host=testhost2;dbname=components", "root", "SlowHead2023");
+       $this->auth = new \Delight\Auth\Auth($db);
    }
 
-    public function index($vars)
+    public function index()
+
     {
-        $db = new QueryBuilder();
-        $posts = $db->getAll('posts');
-        echo $this->templates->render('homepage', ['postsInView' => $posts]);
+//        d($this->qb); die();
+//        try {
+//            $this->auth->admin()->removeRoleForUserById('3', \Delight\Auth\Role::ADMIN);
+//        }
+//        catch (\Delight\Auth\UnknownIdException $e) {
+//            die('Unknown user ID');
+//        }
+
+
+//           $this->auth->login('anna@rambler.ru', 'ruchika');
+
+
+
+        try {
+            $this->auth->admin()->addRoleForUserById('3', \Delight\Auth\Role::DEVELOPER);
+        }
+        catch (\Delight\Auth\UnknownIdException $e) {
+            die('Unknown user ID');
+        }
+//          d($this->auth->getRoles()); die;
+//          $db = new QueryBuilder();
+//          $posts = $db->getAll('posts');
+//          echo $this->templates->render('homepage', ['postsInView' => $posts]);
 
 
     }
@@ -30,10 +56,9 @@ class HomeController
 
     {
         try {
-           $db =  new PDO("mysql:host=testhost2;dbname=components", "root", "SlowHead2023");
-            $auth = new \Delight\Auth\Auth($db);
 
-            $userId = $auth->register('jojo26rus@gmail.com', 'tapor', 'Georgy', function ($selector, $token) {
+
+                $userId = $this->auth->register('anna@rambler.ru ', 'ruchika', 'Anna', function ($selector, $token) {
                 echo 'Send ' . $selector . ' and ' . $token . ' to the user (e.g. via email)';
                 echo '  For emails, consider using the mail(...) function, Symfony Mailer, Swiftmailer, PHPMailer, etc.';
                 echo '  For SMS, consider using a third-party service and a compatible SDK';
@@ -63,47 +88,48 @@ class HomeController
         echo $this->templates->render('layout', ['name' => 'Georgy']);
     }
 
-    public function withdraw($amount=1)
+    public function email_verification()
     {
-        $total = 10;
+        try {
+            $this->auth->confirmEmail('1Ztr8kKROT9RkQMJ','x_7Kr83cf6T_4VD9');
 
-        throw new AccountIsBlockedException("Your account is blocked" . $amount);
-
-
-
-        if ($amount>$total){
-            // ... Exception
-            throw new InsufficientFundsException("Not enough money");
+            echo 'Email address has been verified';
         }
+        catch (\Delight\Auth\InvalidSelectorTokenPairException $e) {
+            die('Invalid token');
+        }
+        catch (\Delight\Auth\TokenExpiredException $e) {
+            die('Token expired');
+        }
+        catch (\Delight\Auth\UserAlreadyExistsException $e) {
+            die('Email address already exists');
+        }
+        catch (\Delight\Auth\TooManyRequestsException $e) {
+            die('Too many requests');
+        }
+
+    }
+
+    public function login()
+    {
+        try {
+            $this->auth->login('anna@rambler.ru', 'ruchika');
+
+            echo 'User is logged in';
+        }
+        catch (\Delight\Auth\InvalidEmailException $e) {
+            die('Wrong email address');
+        }
+        catch (\Delight\Auth\InvalidPasswordException $e) {
+            die('Wrong password');
+        }
+        catch (\Delight\Auth\EmailNotVerifiedException $e) {
+            die('Email not verified');
+        }
+        catch (\Delight\Auth\TooManyRequestsException $e) {
+            die('Too many requests');
+        }
+
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
